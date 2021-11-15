@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import SearchBar from './SearchBar'
 import youtube from '../Api/YoutubeApi'
+import VideoList from './VideoList'
 
 const KEY = 'AIzaSyCN6e98GjAfa_d4E4mISSn8uCP6g5b1DvE'
 
@@ -11,7 +12,7 @@ export class App extends Component {
       params: {
         q: input,
         part: 'snippet',
-        maxResults: 25,
+        maxResults: 5,
         type: 'video',
         key: KEY,
       },
@@ -23,8 +24,8 @@ export class App extends Component {
   render() {
     return (
       <div className='ui container'>
-        <SearchBar onFormSubmit={this.onInputSubmit} /> I have
-        {this.state.videos.length} Videos.
+        <SearchBar onFormSubmit={this.onInputSubmit} />
+        <VideoList videos={this.state.videos} />
       </div>
     )
   }
