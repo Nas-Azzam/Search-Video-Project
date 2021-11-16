@@ -4,42 +4,58 @@ import youtube from '../Api/YoutubeApi'
 import VideoList from './VideoList'
 import VideoDetail from './VideoDetail'
 
-const KEY = 'AIzaSyCN6e98GjAfa_d4E4mISSn8uCP6g5b1DvE'
+const KEY = 'AIzaSyDms4HG3XRKAjSJoR3wsLoUwuazQ8tRbLk'
 
 export class App extends Component {
   // constructor(props) {
   //   super(props)
   //   this.onSelectVideo = this.onSelectVideo.bind(this)
   // }
-  state = { videos: [], selectedVideo: null }
+  state = { videos: [], selectedVideo: '' }
+
+  componentDidMount() {
+    this.onInputSubmit(Math.random().toString(36).substr(2, 5))
+  }
 
   onInputSubmit = async (input) => {
     const response = await youtube.get('/search', {
       params: {
         q: input,
         part: 'snippet',
-        maxResults: 5,
+        maxResults: 25,
         type: 'video',
         key: KEY,
       },
     })
-    console.log(response)
+    // console.log(response)
     //   console.log(this.state.videos)
-    this.setState({ videos: response.data.items })
+    this.setState({
+      videos: response.data.items,
+      selectedVideo: response.data.items[0],
+    })
   }
 
   onVideoSelect = (videos) => {
-    console.log('From the App!', videos)
+    // this.setState({ selectedVideo: videos })
+    this.setState({ selectedVideo: videos })
   }
   render() {
     return (
       <div className='ui container'>
         <SearchBar onFormSubmit={this.onInputSubmit} />
-        <VideoList
-          onVideoSelect={this.onVideoSelect}
-          videos={this.state.videos}
-        />
-        <VideoDetail video={this.state.selectedVideo} />
+        <div className='ui grid'>
+          <div className='ui row'>
+            <div className='eleven wide column'>
+              <VideoDetail video={this.state.selectedVideo} />
+            </div>
+            <div className='five wide column ui'>
+              <VideoList
+                onVideoSelect={this.onVideoSelect}
+                videos={this.state.videos}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
