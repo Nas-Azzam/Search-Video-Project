@@ -22,7 +22,7 @@ export class App extends Component {
       params: {
         q: input,
         part: 'snippet',
-        maxResults: 25,
+        maxResults: 10,
         type: 'video',
         key: KEY,
       },
