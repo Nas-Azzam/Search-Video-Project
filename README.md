@@ -1,1 +1,10 @@
+******* Search-bar For Youtube Contant Search *******
+
 # Search-Video
+<!-- Search Content with Youtube Data Api  -->
+
+1 ) Git Clone....
+<!-- go to directry open Vs code or terminal  -->
+> npm install
+> npm start
+
