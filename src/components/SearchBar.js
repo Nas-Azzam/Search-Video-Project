@@ -20,7 +20,7 @@ export class SearchBar extends Component {
         {/* when for submit */}
         <form onSubmit={this.onFormSubmit} className='ui form'>
           <div className='field'>
-            <label>Video Search</label>
+            <label>Search for Video</label>
             <input
               type='search'
               value={this.state.input}
